@@ -4,26 +4,37 @@ import AddToDo from "./components/AddToDo";
 import AppName from "./components/AppName";
 import TodoItems from "./components/TodoItems";
 import EmptyToDo from "./components/EmptyToDo";
+import { TodoItemsContext } from "./store/todo-items-store";
 
 function App() {
   const [todoItems, setTodoItems] = useState([]);
 
-  const handleNewItem = (itemName, itemDueDate) => {
-    setTodoItems([...todoItems, { name: itemName, dueDate: itemDueDate }]);
+  const addNewItem = (itemName, itemDueDate) => {
+    setTodoItems((currValue) => {
+      return [...currValue, { name: itemName, dueDate: itemDueDate }];
+    });
   };
-  const handleDeleteItem = (todoName) => {
+  const deleteItem = (todoName) => {
     let newItems = todoItems.filter((item) => {
       return item.name !== todoName;
     });
     setTodoItems(newItems);
   };
   return (
-    <center>
-      <AppName />
-      <AddToDo onNewItem={handleNewItem} />
-      {todoItems.length == 0 ? <EmptyToDo /> : null}
-      <TodoItems todoItems={todoItems} onDeleteItem={handleDeleteItem} />
-    </center>
+    <TodoItemsContext.Provider
+      value={{
+        todoItems,
+        addNewItem,
+        deleteItem,
+      }}
+    >
+      <center>
+        <AppName />
+        <AddToDo />
+        <EmptyToDo />
+        <TodoItems />
+      </center>
+    </TodoItemsContext.Provider>
   );
 }
 

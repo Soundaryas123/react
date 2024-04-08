@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
+import { TodoItemsContext } from "../store/todo-items-store";
 
-function EmptyToDo({ todoItems }) {
+function EmptyToDo() {
+  const { todoItems } = useContext(TodoItemsContext);
+
   return (
-    // <div>{todoItems.length==0 ? 'Enjoy your day':null}</div>
-    <p className="empty-message">Enjoy your day</p>
+    todoItems.length === 0 && <p className="empty-message">Enjoy your day</p>
   );
 }
 

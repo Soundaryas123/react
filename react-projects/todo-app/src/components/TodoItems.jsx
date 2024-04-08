@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import TodoItem from "./TodoItem";
+import { TodoItemsContext } from "../store/todo-items-store";
 
-function TodoItems({ todoItems, onDeleteItem }) {
+function TodoItems() {
+  const {todoItems}=useContext(TodoItemsContext);
   return (
     <>
       {todoItems.map((item) => {
@@ -10,7 +12,7 @@ function TodoItems({ todoItems, onDeleteItem }) {
           key={item.name}
             todoDate={item.dueDate}
             todoItem={item.name}
-            onDeleteItem={onDeleteItem}
+           
           />
         );
       })}

@@ -1,8 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import styles from "../styles/AddToDo.module.css";
 import { GrTableAdd } from "react-icons/gr";
+import { TodoItemsContext } from "../store/todo-items-store";
 
-function AddToDo({ onNewItem }) {
+function AddToDo() {
+  const {addNewItem} =useContext(TodoItemsContext)
   const todoNameElement = useRef();
   const dueDateNameElement = useRef();
 
@@ -10,7 +12,7 @@ function AddToDo({ onNewItem }) {
     event.preventDefault();
     const todoName = todoNameElement.current.value;
     const dueDate = dueDateNameElement.current.value;
-    onNewItem(todoName, dueDate);
+    addNewItem(todoName, dueDate);
     todoNameElement.current.value = "";
     dueDateNameElement.current.value = "";
   };

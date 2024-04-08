@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import styles from "../styles/TodoItem.module.css";
 import { MdDelete } from "react-icons/md";
+import { TodoItemsContext } from "../store/todo-items-store";
 
-function TodoItem({ todoDate, todoItem, onDeleteItem }) {
+function TodoItem({ todoDate, todoItem }) {
   const onDelete = () => {
-    onDeleteItem(todoItem);
+    deleteItem(todoItem);
   };
-
+  const { deleteItem } = useContext(TodoItemsContext);
   return (
     <div className={`container text-center ${styles["container-margin"]}`}>
       <div className="row">
@@ -23,7 +24,7 @@ function TodoItem({ todoDate, todoItem, onDeleteItem }) {
             className={`btn btn-danger ${styles["btn-width"]}`}
             onClick={onDelete}
           >
-           <MdDelete />
+            <MdDelete />
           </button>
         </div>
       </div>
